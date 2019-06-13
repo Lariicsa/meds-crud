@@ -10,17 +10,12 @@ export default new Router({
     {
       path: '/',
       name: 'inicio',
-      component: () => import(/* webpackChunkName: "inicio" */ './views/Inicio.vue')
+      component: () => import('./views/Inicio.vue')
     },
     {
       path: '/editar/:id',
       name: 'editar',
-      component: () => import(/* webpackChunkName: "Edit" */ './views/Editar.vue')
-    },
-    {
-      path: '/agregar',
-      name: 'agregar',
-      component: () => import(/* webpackChunkName: "Add" */ './views/Agregar.vue')
+      component: () => import('./views/Editar.vue')
     }
   ]
 })

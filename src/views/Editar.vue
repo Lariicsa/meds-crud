@@ -1,10 +1,10 @@
 <template>
-	<div>
-		<h1>Editar</h1>
-		{{id}} - {{tarea}}
-		<form @submit.prevent="editarTarea(tarea)">
-			<input type="text" v-model="tarea.nombre">
-			<button type="submit">Editar</button>
+	<div class="content">
+		<h2>Editar</h2>
+		{{med.nombre}}
+		<form @submit.prevent="editMed(med)">
+			<input type="text" v-model="med.nombre">
+			<button type="submit">Actudalizar</button>
 		</form>
 	</div>
 </template>
@@ -19,13 +19,13 @@ export default {
 		}
 	},
 	methods:{
-		...mapActions(['getTarea', 'editarTarea'])
+		...mapActions(['getMed', 'editMed'])
 	},
 	created(){
-		this.getTarea(this.id)
+		this.getMed(this.id)
 	},
 	computed: {
-		...mapState(['tarea'])
+		...mapState(['med'])
 	}
 }
 </script>

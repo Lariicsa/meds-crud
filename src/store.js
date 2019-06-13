@@ -7,71 +7,52 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    tareas: [],
-    tarea: {nombre: '', id: ''}
+    meds: [],
+    med:{
+      id: '',
+      caducidad: '',
+      cantidad: '',
+      mg: '',
+      nombre: '',
+      mod: ''
+    }
   },
   mutations: {
-    setTareas(state, tareasfromdb){
-      state.tareas = tareasfromdb
+    setMeds(state, medsfromDb){
+      state.meds = medsfromDb
     },
-    setTarea(state, tareafromdb) {
-      state.tarea = tareafromdb
-    },
-    eliminarTarea(state,id) {
-      state.tareas = state.tareas.filter( doc => {
-        return doc.id != id
-      })
+    setMed(state, medfromdb) {
+      state.med = medfromdb
     }
   },
   actions: {
-    getTareas({commit}){
-      const tareas = []
-      db.collection('tareas').get()
-      .then(snapshot =>{
-        snapshot.forEach( doc => {
-          //console.log(doc.id);
-          //console.log(doc.data());
-          let tarea = doc.data()
-          tarea.id = doc.id
-          tareas.push(tarea)
+    getMeds({commit}){
+      const meds = []
+      db.collection('meds').get()
+      .then(snapshot => {
+        snapshot.forEach(doc =>{
+          let med = doc.data();
+          med.id = doc.id
+          meds.push(med)
         })
-      })
-      commit('setTareas', tareas)
-    },
-    getTarea({commit}, id) {
-      db.collection('tareas').doc(id).get()
-      .then(doc => {
-        //console.log(doc.data());
-        //console.log(doc.id);
-        let tarea = doc.data();
-        tarea.id= doc.id
-        commit('setTarea', tarea)
+        commit('setMeds', meds)
       })
     },
-    editarTarea({commit}, tarea){
-      db.collection('tareas').doc(tarea.id).update({
-        nombre: tarea.nombre
+    getMed({commit}, id) {
+      db.collection('meds').doc(id).get()
+      .then(documento => {
+        let med = documento.data();
+        med.id = documento.id
+        commit('setMed', med)
       })
-      .then(() =>{
+    },
+    editMed({commit}, med) {
+      db.collection('meds').doc(med.id).update({
+        nombre: med.nombre
+      })
+      /*.then(documento => {
         router.push({name: 'inicio'})
-      })
-    },
-    agregarTarea({commit}, nombre){
-      db.collection('tareas').add({
-        nombre: nombre
-      })
-      .then(doc =>{
-        console.log(doc.id)
-        router.push({name: 'inicio'})
-      })
-    },
-    eliminarTarea({commit, dispatch}, id) {
-      db.collection('tareas').doc(id).delete()
-      .then(()=>{
-        console.log('Tarea fue eliminada');
-        //dispatch('getTareas');
-        commit('eliminarTarea', id)
-      })
+      })*/
     }
   }
 })
