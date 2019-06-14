@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -16,6 +16,13 @@ export default new Router({
       path: '/editar/:id',
       name: 'editar',
       component: () => import('./views/Editar.vue')
+    },
+    {
+      path: '/agregar',
+      name: 'agregar',
+      component: () => import('./views/Agregar.vue')
     }
   ]
 })
+
+export default router;

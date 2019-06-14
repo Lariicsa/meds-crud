@@ -14,7 +14,7 @@ export default new Vuex.Store({
       cantidad: '',
       mg: '',
       nombre: '',
-      mod: ''
+      mod: '',
     }
   },
   mutations: {
@@ -23,6 +23,11 @@ export default new Vuex.Store({
     },
     setMed(state, medfromdb) {
       state.med = medfromdb
+    },
+    deleteMed(state, id) {
+      state.meds = state.meds.filter( documento=>{
+        return documento.id != id
+      })
     }
   },
   actions: {
@@ -48,11 +53,36 @@ export default new Vuex.Store({
     },
     editMed({commit}, med) {
       db.collection('meds').doc(med.id).update({
-        nombre: med.nombre
+        nombre: med.nombre,
+        mg: med.mg,
+        cantidad: med.cantidad,
+        mod: med.mod,
+        caducidad: med.caducidad
       })
-      /*.then(documento => {
+      .then(documento => {
         router.push({name: 'inicio'})
-      })*/
+        console.log('updated')
+      })
+    },
+    addMed({commit}, {nombre, mg, cantidad, mod, caducidad}){
+      db.collection('meds').add({
+        nombre:nombre,
+        mg:mg,
+        cantidad: cantidad,
+        mod: mod,
+        caducidad: caducidad
+      })
+      .then(document=>{
+        router.push({name: 'inicio'})
+        console.log('added', document.id)
+      })
+    },
+    deleteMed({commit, dispatch}, id){
+      db.collection('meds').doc(id).delete()
+      .then(()=>{
+        console.log('Deleted', id)
+        commit('deleteMed', id)
+      })
     }
   }
 })
