@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import db from './firebase'
 import router from './router'
+import { stat } from 'fs';
+var firebase = require('firebase/app');
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    user: '',
+    error:'',
     meds: [],
     med:{
       id: '',
@@ -28,9 +31,27 @@ export default new Vuex.Store({
       state.meds = state.meds.filter( documento=>{
         return documento.id != id
       })
+    },
+    setUsuario(state, payload) {
+      state.usuario = payload
+    },
+    setError(state, payload){
+      state.error = payload
     }
   },
   actions: {
+    crearUsuario({commit},payload){
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.pass)
+      .then(res=>{
+        console.log(res.user.email);
+        console.log(res.user.uid);
+        commit('setUsuario', {email: res.user.email, uid:res.user.uid})
+      })
+      .catch(err=>{
+        console.log(err.message);
+        commit('setError', err.message)
+      })
+    },
     getMeds({commit}){
       const meds = []
       db.collection('meds').get()

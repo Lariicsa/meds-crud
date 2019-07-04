@@ -21,6 +21,11 @@ const router = new Router({
       path: '/agregar',
       name: 'agregar',
       component: () => import('./views/Agregar.vue')
+    },
+    {
+      path: '/registro',
+      name: 'registro',
+      component: () => import('./views/Registro.vue')
     }
   ]
 })

@@ -1,4 +1,10 @@
 <template>
+<div>
+  <nav>
+    <router-link :to="{name: 'registro'}">
+        <a>Registro</a>
+      </router-link>
+  </nav>
   <div class="section">
     <h2 class="title is-2">Lista de Medicamentos</h2>
     <hr>
@@ -41,6 +47,7 @@
         <button class="button is-primary">Agregar</button>
       </router-link>
     </div>
+  </div>
   </div>
 </template>
 
