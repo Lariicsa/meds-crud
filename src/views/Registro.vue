@@ -22,11 +22,11 @@
             </router-link>
           </p>
           <p class="control">
-            <button class="button is-primary" type="submit">Agregar</button>
+            <button class="button is-primary" type="submit" :disabled="!desactivar">Agregar</button>
           </p>
         </div>
       </form>
-		<span class="help">{{error}}</span>
+		<span class="help is-danger">{{error}}</span>
     </div>
   </div>
 </template>
@@ -46,7 +46,10 @@ export default {
 	  ...mapActions(['crearUsuario'])
   },
   computed:{
-	  ...mapState(['error'])
+	  ...mapState(['error']),
+	  desactivar(){
+		  return this.pass1 === this.pass2 && this.pass1 != ''
+	  }
   }
 };
 </script>
