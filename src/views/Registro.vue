@@ -5,7 +5,10 @@
       <form class="control" @submit.prevent="crearUsuario({email:email, pass:pass1})">
         <div class="field">
           <label class="label">E-mail</label>
-          <input class="input" type="email" v-model="email">
+          <input class="input" type="email" v-model.lazy="$v.email.$model" :class="$v.email.$error? 'is-danger': ''">
+          <p class="help is-danger" v-if="!$v.email.email">Formato incorrecto de e-mail</p>
+           <p class="help is-danger" v-if="!$v.email.required">Formato incorrecto de e-mail</p>
+          <p>{{$v.email.$error}}</p>
         </div>
         <div class="field">
           <label class="label">Password</label>
@@ -38,9 +41,9 @@ export default {
   name: "Registro",
   data() {
     return {
-      email: "",
-      pass1: "",
-      pass2: ""
+      email: '',
+      pass1: '',
+      pass2: ''
     };
   },
   methods:{
@@ -51,6 +54,9 @@ export default {
 	  desactivar(){
 		  return this.pass1 === this.pass2 && this.pass1 != ''
 	  }
+  },
+  validations:{
+    email:{required, email}
   }
 };
 </script>
