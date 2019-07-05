@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: '',
+    usuario: '',
     error:'',
     meds: [],
     med:{
@@ -40,18 +41,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    crearUsuario({commit},payload){
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.pass)
-      .then(res=>{
-        console.log(res.user.email);
-        console.log(res.user.uid);
-        commit('setUsuario', {email: res.user.email, uid:res.user.uid})
-      })
-      .catch(err=>{
-        console.log(err.message);
-        commit('setError', err.message)
-      })
-    },
     getMeds({commit}){
       const meds = []
       db.collection('meds').get()
@@ -104,6 +93,44 @@ export default new Vuex.Store({
         console.log('Deleted', id)
         commit('deleteMed', id)
       })
+    },
+    crearUsuario({commit},payload){
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.pass)
+      .then(res=>{
+        console.log(res.user.email);
+        console.log(res.user.uid);
+        commit('setUsuario', {email: res.user.email, uid:res.user.uid})
+        router.push({name:'inicio'})
+      })
+      .catch(err=>{
+        console.log(err.message);
+        commit('setError', err.message)
+      })
+    },
+    ingresoUsuario({commit},payload){
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.pass)
+      .then(res=>{
+        console.log(res);
+        commit('setUsuario', {email: res.user.email, uid:res.user.uid})
+        router.push({name:'inicio'})
+      })
+      .catch(err=>{
+        console.log(err.message);
+        commit('setError', err.message)
+      })
+    },
+    detectarUsuario({commit}, payload){
+      if(payload != null){
+        commit('setUsuario', {email: payload.email, uid: payload.uid})
+      }else{
+        commit('setUsuario', null)
+      }
+      
+    },
+    cerrarSesion({commit}){
+      firebase.auth().signOut()
+      commit('setUsuario', null)
+      router.push({name:'ingreso'})
     }
   }
 })

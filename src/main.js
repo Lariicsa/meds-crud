@@ -6,6 +6,7 @@ import store from './store'
 var firebase = require("firebase/app");
 
 require("firebase/auth");
+//require("firebase/firestore");
 
 const config = {
   apiKey: "AIzaSyClQbJJ_LCOdvwYr2pT3sXOSL8agGHsLTE",
@@ -20,10 +21,19 @@ firebase.initializeApp(config);
 
 Vue.config.productionTip = false
 
-require("./assets/main.scss");
+firebase.auth().onAuthStateChanged((user)=>{
+  console.log(user);
+  if(user){
+    store.dispatch('detectarUsuario', {email: user.email, uid: user.uid})
+  }else{
+    store.dispatch('detectarUsuario', null)
+  }
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+  new Vue({ //detected in session
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+  
+})
+require("./assets/main.scss");
