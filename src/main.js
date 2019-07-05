@@ -26,7 +26,7 @@ export default firebaseApp.firestore()
 
 Vue.config.productionTip = false
 
-firebase.auth().onAuthStateChanged((user)=>{
+firebase.auth().onAuthStateChanged((user=>{
   console.log(user);
   if(user){
     store.dispatch('detectarUsuario', {email: user.email, uid: user.uid})
@@ -34,11 +34,11 @@ firebase.auth().onAuthStateChanged((user)=>{
     store.dispatch('detectarUsuario', null)
   }
 
-  new Vue({ //detected in session
+  new Vue({
     router,
     store,
     render: h => h(App)
   }).$mount('#app')
   
-})
+}))
 require("./assets/main.scss");

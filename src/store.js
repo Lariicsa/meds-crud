@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     user: '',
     usuario: '',
+    email:'',
     error:'',
     meds: [],
     med:{
