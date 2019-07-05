@@ -17,12 +17,14 @@ const router = new Router({
     {
       path: '/editar/:id',
       name: 'editar',
-      component: () => import('./views/Editar.vue')
+      component: () => import('./views/Editar.vue'),
+      meta: {requiresAuth: true}
     },
     {
       path: '/agregar',
       name: 'agregar',
-      component: () => import('./views/Agregar.vue')
+      component: () => import('./views/Agregar.vue'),
+      meta: {requiresAuth: true}
     },
     {
       path: '/registro',

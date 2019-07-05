@@ -6,9 +6,9 @@ import store from './store'
 var firebase = require("firebase/app");
 
 require("firebase/auth");
-//require("firebase/firestore");
+require("firebase/firestore");
 
-const config = {
+var config = {
   apiKey: "AIzaSyClQbJJ_LCOdvwYr2pT3sXOSL8agGHsLTE",
   authDomain: "homeds307.firebaseapp.com",
   databaseURL: "https://homeds307.firebaseio.com",
@@ -17,7 +17,12 @@ const config = {
   messagingSenderId: "317540930398",
   appId: "1:317540930398:web:c1d873bb289170e2"
 };
-firebase.initializeApp(config);
+
+const firebaseApp = firebase.initializeApp(config);
+
+//firebaseApp.firestore().settings({timestampsInSnapshots: true})
+
+export default firebaseApp.firestore()
 
 Vue.config.productionTip = false
 

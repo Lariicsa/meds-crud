@@ -2,15 +2,6 @@
   <div>
     {{usuario}}
     <h3>Hola, {{usuario.email}}</h3>
-    <nav>
-      <router-link :to="{name: 'registro'}">
-        <a>Registro</a> |
-      </router-link>
-      <router-link :to="{name: 'ingreso'}">
-        <a>Ingreso</a> |
-      </router-link>
-        <a @click="cerrarSesion">Cerrar sesión</a>
-    </nav>
     <div class="section">
       <h2 class="title is-2">Lista de Medicamentos</h2>
       <hr>
@@ -19,7 +10,6 @@
           <button class="button is-primary">Agregar</button>
         </router-link>
       </div>
-<!--
       <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
@@ -47,7 +37,7 @@
           </tr>
         </tbody>
       </table>
-      -->
+      
       <hr>
       <div class="buttons is-right">
         <router-link :to="{name: 'agregar'}">
@@ -63,15 +53,13 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "Inicio",
   methods: {
-    //...mapActions(["getMeds", "deleteMed"])
-    ...mapActions(["cerrarSesion", "detectarUsuario"])
+    ...mapActions(["getMeds", "deleteMed"])
   },
   created() {
-   // this.getMeds();
+   this.getMeds();
   },
   computed: {
-   // ...mapState(["meds", "usuario"])
-  ...mapState(["usuario"])
+  ...mapState(["usuario", "meds"])
   }
 };
 </script>

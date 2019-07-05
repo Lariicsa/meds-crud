@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from './router'
-import { stat } from 'fs';
 var firebase = require('firebase/app');
+import db from './main'
 
 Vue.use(Vuex)
 
@@ -42,8 +42,9 @@ export default new Vuex.Store({
   },
   actions: {
     getMeds({commit}){
+      const usuario = firebase.auth().currentUser
       const meds = []
-      db.collection('meds').get()
+      db.collection(usuario.email).get() //reemplazo de 'meds' collection
       .then(snapshot => {
         snapshot.forEach(doc =>{
           let med = doc.data();
@@ -54,7 +55,8 @@ export default new Vuex.Store({
       })
     },
     getMed({commit}, id) {
-      db.collection('meds').doc(id).get()
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).doc(id).get()
       .then(documento => {
         let med = documento.data();
         med.id = documento.id
@@ -62,7 +64,8 @@ export default new Vuex.Store({
       })
     },
     editMed({commit}, med) {
-      db.collection('meds').doc(med.id).update({
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).doc(med.id).update({
         nombre: med.nombre,
         mg: med.mg,
         cantidad: med.cantidad,
@@ -75,7 +78,8 @@ export default new Vuex.Store({
       })
     },
     addMed({commit}, {nombre, mg, cantidad, mod, caducidad}){
-      db.collection('meds').add({
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).add({
         nombre:nombre,
         mg:mg,
         cantidad: cantidad,
@@ -88,7 +92,8 @@ export default new Vuex.Store({
       })
     },
     deleteMed({commit, dispatch}, id){
-      db.collection('meds').doc(id).delete()
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).doc(id).delete()
       .then(()=>{
         console.log('Deleted', id)
         commit('deleteMed', id)
@@ -100,7 +105,17 @@ export default new Vuex.Store({
         console.log(res.user.email);
         console.log(res.user.uid);
         commit('setUsuario', {email: res.user.email, uid:res.user.uid})
-        router.push({name:'inicio'})
+        //crear colección
+        db.collection(res.user.email).add({
+          nombre:'Tu medicina',
+          mg:'miligramos',
+          cantidad: '25',
+          mod: '10',
+          caducidad: '2021-01-01'
+        })
+        .then(()=>{
+          router.push({name:'inicio'})
+        })
       })
       .catch(err=>{
         console.log(err.message);
@@ -131,6 +146,15 @@ export default new Vuex.Store({
       firebase.auth().signOut()
       commit('setUsuario', null)
       router.push({name:'ingreso'})
+    }
+  },//start getters
+  getters:{
+    existeUsuario(state){
+      if(state.usuario === null || state.usuario === '' || state.usuario === undefined ){
+        return false
+      } else {
+        return true
+      }
     }
   }
 })
