@@ -22,7 +22,7 @@
             </router-link>
           </p>
           <p class="control">
-            <button class="button is-primary" type="submit" :disabled="!desactivar">Agregar</button>
+            <button class="button is-primary" type="submit" :disabled="!desactivar">Log up</button>
           </p>
         </div>
       </form>
@@ -33,6 +33,7 @@
 
 <script>
 import {mapActions, mapState} from 'vuex';
+import {required, email } from 'vuelidate/lib/validators';
 export default {
   name: "Registro",
   data() {
