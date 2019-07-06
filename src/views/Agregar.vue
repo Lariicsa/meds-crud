@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Agregar</h1>
-    <div class="section">
+    <h1 class="title is-3 has-text-primary">Agregar nuevo medicamento</h1>
+    <div class="section has-background-light">
       <form class="control" @submit.prevent="addMed({nombre, mg, cantidad, mod, caducidad})">
         <div class="field">
           <label class="label">Nombre</label>

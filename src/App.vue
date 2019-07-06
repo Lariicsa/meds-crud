@@ -1,35 +1,54 @@
 <template>
   <div id="app" class="container">
-    <nav>
-      <div v-if="!existeUsuario">
-        <router-link :to="{name: 'registro'}">
-          <a>Registro</a> |
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <router-link :to="{name: 'inicio'}" class="navbar-item">
+          <h2 class="title is-3">Homeds</h2>
         </router-link>
-        <router-link :to="{name: 'ingreso'}">
-          <a>Ingreso</a> |
-        </router-link>
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-      <a v-if="existeUsuario" @click="cerrarSesion">Cerrar sesión</a>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <strong class="navbar-item">{{usuario.email}}</strong>
+              <a class="button is-light" v-if="existeUsuario" @click="cerrarSesion">Cerrar sesión</a>
+              <router-link v-if="!existeUsuario" :to="{name: 'ingreso'}" class="button is-light">
+                <a>Login</a>
+              </router-link>
+              <router-link v-if="!existeUsuario" :to="{name: 'registro'}" class="button is-primary">
+                <strong>Register</strong>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
-    <div class="content">
-      <router-link :to="{name: 'inicio'}">
-        <h1 class="title is-1">HoMeds</h1>
-        <hr>
-      </router-link>
-    </div>
+    <hr>
     <router-view/>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   name: "App",
   methods: {
     ...mapActions(["cerrarSesion"])
   },
   computed: {
-    ...mapGetters(["existeUsuario"])
+    ...mapGetters(["existeUsuario"]),
+    ...mapState(["usuario"])
   }
 };
 </script>

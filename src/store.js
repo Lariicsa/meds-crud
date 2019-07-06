@@ -96,8 +96,9 @@ export default new Vuex.Store({
       const usuario = firebase.auth().currentUser
       db.collection(usuario.email).doc(id).delete()
       .then(()=>{
-        console.log('Deleted', id)
         commit('deleteMed', id)
+        console.log('Deleted', id)
+        router.push({name:'inicio'})
       })
     },
     crearUsuario({commit},payload){

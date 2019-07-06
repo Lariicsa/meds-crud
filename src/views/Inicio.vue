@@ -1,9 +1,7 @@
 <template>
   <div>
-    {{usuario}}
-    <h3>Hola, {{usuario.email}}</h3>
     <div class="section">
-      <h2 class="title is-2">Lista de Medicamentos</h2>
+      <h2 class="title is-4">Lista de Medicamentos</h2>
       <hr>
       <div class="buttons is-right">
         <router-link :to="{name: 'agregar'}">
@@ -28,8 +26,8 @@
             <td>{{item.expira}}</td>
             <td>
               <div class="buttons is-centered">
+                <button class="button is-danger is-outlined" @click="deleteMed(item.id)">Borrar</button>
                 <router-link :to="{name: 'editar', params:{id: item.id}}">
-                  <button class="button is-danger is-outlined" @click="deleteMed(item.id)">Borrar</button>
                   <button class="button is-secondary">Editar</button>
                 </router-link>
               </div>
