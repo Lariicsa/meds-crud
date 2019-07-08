@@ -22,7 +22,7 @@
               v-model.lazy="$v.pass1.$model"
               :class="$v.pass1.$error? 'is-danger': ''"
             >
-            <p class="help is-danger" v-if="!$v.pass1.minLength">Should be at least 6 characters</p>
+            <p class="help is-danger" v-if="!$v.pass1.minLength">Must be at least 6 characters</p>
           </div>
           <div class="field">
             <label class="label">Repeat password</label>
@@ -41,7 +41,7 @@
               </router-link>
             </p>
             <p class="control">
-              <button class="button is-primary" type="submit" :disabled="!desactivar">Register</button>
+              <button class="button is-primary" type="submit" :disabled="!desactivar">Sign up</button>
             </p>
           </div>
         </form>
