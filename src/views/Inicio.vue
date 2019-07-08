@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section">
-      <h2 class="title is-4">Lista de Medicamentos</h2>
+      <h2 class="title is-4">Current Meds</h2>
       <hr>
       <div class="buttons is-right">
         <router-link :to="{name: 'agregar'}">
@@ -23,7 +23,7 @@
             <td>{{item.nombre}}</td>
             <td>{{item.mg}}</td>
             <td>{{item.mod}}</td>
-            <td>{{item.expira}}</td>
+            <td>{{item.caducidad}}</td>
             <td>
               <div class="buttons is-centered">
                 <button class="button is-danger is-outlined" @click="deleteMed(item.id)">Borrar</button>
