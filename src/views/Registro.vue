@@ -29,7 +29,7 @@
             <input
               class="input"
               type="password"
-              v-model.lazy="$v.pass2.$model"
+              v-model="$v.pass2.$model"
               :class="$v.pass2.$error? 'is-danger': ''"
             >
             <p class="help is-danger" v-if="!$v.pass2.sameAsPassword">Password don't match</p>
