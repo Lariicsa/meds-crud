@@ -12,6 +12,7 @@
         <thead>
           <tr>
             <th>Nombre</th>
+            <th>Fórmula</th>
             <th>miligramos</th>
             <th>Quedan</th>
             <th>Caducidad</th>
@@ -21,6 +22,7 @@
         <tbody>
           <tr v-for="item of meds" :key="item.id">
             <td>{{item.nombre}}</td>
+            <td>{{item.formule}}</td>
             <td>{{item.mg}}</td>
             <td>{{item.mod}}</td>
             <td>{{item.caducidad}}</td>

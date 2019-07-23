@@ -7,6 +7,10 @@
         <label class="label">Nombre</label>
         <input class="input" type="text" v-model="med.nombre">
       </div>
+       <div class="field">
+        <label class="label">Fórmula</label>
+        <input class="input" type="text" v-model="med.formule">
+      </div>
       <div class="field">
         <label class="label">Miligramos</label>
         <input class="input" type="number" v-model="med.mg">

@@ -17,6 +17,7 @@ export default new Vuex.Store({
       id: '',
       caducidad: '',
       cantidad: '',
+      formule:'',
       mg: '',
       nombre: '',
       mod: '',
@@ -71,21 +72,23 @@ export default new Vuex.Store({
         mg: med.mg,
         cantidad: med.cantidad,
         mod: med.mod,
-        caducidad: med.caducidad
+        caducidad: med.caducidad,
+        formule: med.formule
       })
       .then(documento => {
         router.push({name: 'inicio'})
         console.log('updated')
       })
     },
-    addMed({commit}, {nombre, mg, cantidad, mod, caducidad}){
+    addMed({commit}, {nombre, mg, cantidad, mod, caducidad, formule}){
       const usuario = firebase.auth().currentUser
       db.collection(usuario.email).add({
         nombre:nombre,
         mg:mg,
         cantidad: cantidad,
         mod: mod,
-        caducidad: caducidad
+        caducidad: caducidad,
+        formule: formule
       })
       .then(document=>{
         router.push({name: 'inicio'})
