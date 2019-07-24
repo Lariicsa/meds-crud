@@ -2,6 +2,11 @@
   <div>
     <div class="section">
       <h2 class="title is-4">Current Meds</h2>
+      <form @submit.prevent="finder(findtext)">
+        <div class="field">
+        <input class="input" type="text" v-model="findtext" placeholder="Find any medecine" v-on:keyup="finder(findtext)">
+      </div>
+      </form>
       <hr>
       <div class="buttons is-right">
         <router-link :to="{name: 'agregar'}">
@@ -20,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item of meds" :key="item.id">
+          <tr v-for="item of arrayFiltrado" :key="item.id">
             <td>{{item.nombre}}</td>
             <td>{{item.formule}}</td>
             <td>{{item.mg}}</td>
@@ -49,17 +54,23 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 export default {
   name: "Inicio",
+  data(){
+    return{
+      findtext: ''
+    };
+  },
   methods: {
-    ...mapActions(["getMeds", "deleteMed"])
+    ...mapActions(["getMeds", "deleteMed", "finder"])
   },
   created() {
-   this.getMeds();
+   this.getMeds()
   },
   computed: {
-  ...mapState(["usuario", "meds"])
+  ...mapState(["usuario", "meds"]),
+  ...mapGetters(['arrayFiltrado'])
   }
-};
+}
 </script>

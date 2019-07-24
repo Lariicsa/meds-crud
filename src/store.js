@@ -8,6 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    findtext: '',
     user: '',
     usuario: '',
     email:'',
@@ -23,6 +24,7 @@ export default new Vuex.Store({
       mod: '',
     }
   },
+
   mutations: {
     setMeds(state, medsfromDb){
       state.meds = medsfromDb
@@ -43,6 +45,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    finder({commit, state}, payload){
+      console.log(payload);
+      state.findtext = payload.toLowerCase();
+    },
     getMeds({commit}){
       const usuario = firebase.auth().currentUser
       const meds = []
@@ -160,6 +166,16 @@ export default new Vuex.Store({
       } else {
         return true
       }
+    },
+    arrayFiltrado(state){
+      let arregloFiltrado = []
+      for (let med of state.meds){
+        let nombre = med.nombre.toLowerCase();
+        if(nombre.indexOf(state.findtext)>=0){
+          arregloFiltrado.push(med)
+        }
+      }
+      return arregloFiltrado;
     }
   }
 })
