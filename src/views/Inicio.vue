@@ -13,7 +13,8 @@
           <button class="button is-primary">Agregar</button>
         </router-link>
       </div>
-      <table class="table is-hoverable is-fullwidth">
+      <div class="table-wrap">
+         <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>Nombre</th>
@@ -42,7 +43,7 @@
           </tr>
         </tbody>
       </table>
-      
+        </div>      
       <hr>
       <div class="buttons is-right">
         <router-link :to="{name: 'agregar'}">
@@ -74,3 +75,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import "../assets/main";
+
+@include mobile {
+  .table-wrap {
+    max-width: 32rem;
+    overflow: scroll;
+  }
+}
+</style>
+

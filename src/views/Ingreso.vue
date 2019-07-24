@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h2
-      class="is-size-3 has-text-centered"
-    >Sign in to continue stocking your meds</h2>
+    <h2 class="is-size-3 has-text-centered">Welcome to Homeds</h2>
+    <p class="is-size-5 has-text-centered">Sign in to continue stocking your meds</p>
     <div class="column is-4 is-offset-4">
       <div class="box">
         <form class="control" @submit.prevent="ingresoUsuario({email:email, pass:pass})">
@@ -20,7 +19,7 @@
             </p>
             <hr>
             <router-link :to="{name: 'registro'}" class="button is-text is-fullwidth">
-                I don't have an account
+                Register a new account
               </router-link>
           </div>
         </form>
@@ -46,3 +45,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.navbar {
+  display: none;
+}
+</style>
