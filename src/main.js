@@ -31,7 +31,6 @@ export default firebaseApp.firestore()
 Vue.config.productionTip = false
 
 firebase.auth().onAuthStateChanged((user=>{
-  console.log(user);
   if(user){
     store.dispatch('detectarUsuario', {email: user.email, uid: user.uid})
   }else{
