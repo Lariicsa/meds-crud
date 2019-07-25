@@ -2,14 +2,14 @@
   <div class="container">
     <h1 class="column is-4 is-offset-4 is-size-3">Add new med</h1>
     <div class="column is-4 is-offset-4">
-      <form class="control" @submit.prevent="addMed({nombre, mg, cantidad, mod, caducidad, formula})">
+      <form class="control" @submit.prevent="addMed({nombre, mg, cantidad, mod, caducidad, formule})">
         <div class="field">
           <label class="label">Nombre</label>
           <input class="input" type="text" v-model="nombre">
         </div>
          <div class="field">
           <label class="label">Fórmula</label>
-          <input class="input" type="text" v-model="formula">
+          <input class="input" type="text" v-model="formule">
         </div>
         <div class="field">
           <label class="label">Miligramos</label>
@@ -53,7 +53,7 @@ export default {
 						cantidad: '',
 						mod: '',
             caducidad: '',
-            formula: ''
+            formule: ''
     };
   },
   methods: {

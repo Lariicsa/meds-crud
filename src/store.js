@@ -46,7 +46,7 @@ export default new Vuex.Store({
   },
   actions: {
     finder({commit, state}, payload){
-      console.log(payload);
+      console.log('finding',payload);
       state.findtext = payload.toLowerCase();
     },
     getMeds({commit}){
@@ -136,7 +136,7 @@ export default new Vuex.Store({
     ingresoUsuario({commit},payload){
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.pass)
       .then(res=>{
-        console.log(res);
+        console.log('logged',res);
         commit('setUsuario', {email: res.user.email, uid:res.user.uid})
         router.push({name:'inicio'})
       })
